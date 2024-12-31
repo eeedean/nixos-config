@@ -123,10 +123,10 @@
 
         "<leader>i" = {action = "'<cmd>:lua vim.diagnostic.open_float(nil, {focus=true, scope=\"cursor\"})<CR>'";};
 
-        "<leader>ff" = {action = "require('telescope.builtin').find_files";};
-        "<leader>fg" = {action = "require('telescope.builtin').live_grep";};
-        "<leader>fb" = {action = "require('telescope.builtin').buffers";};
-        "<leader>fh" = {action = "require('telescope.builtin').help_tags";};
+        "<leader>ff" = {action = "'<cmd>:Telescope find_files<CR>'";};
+        "<leader>fg" = {action = "'<cmd>:Telescope live_grep<CR>'";};
+        "<leader>fb" = {action = "'<cmd>:Telescope buffers<CR>'";};
+        "<leader>fh" = {action = "'<cmd>:Telescope help_tags<CR>'";};
 
         "<leader><Right>" = {action = "'<cmd>:vertical resize +5<CR>'";};
         "<leader><Left>" = {action = "'<cmd>:vertical resize -5<CR>'";};
