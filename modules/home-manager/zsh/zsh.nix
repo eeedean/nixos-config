@@ -36,6 +36,7 @@
         fi
       };
       export NIX_REV="041c867bad68dfe34b78b2813028a2e2ea70a23c";
+      export KUBE_EDITOR=nvim;
     '';
     plugins = [
       {
