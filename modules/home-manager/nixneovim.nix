@@ -13,6 +13,7 @@
   programs.nixneovim = {
     enable = true;
     globals.mapleader = " ";
+    colorschemes.catppuccin.enable = true;
 
     options = {
       number = true; # Show line numbers
@@ -34,7 +35,7 @@
       };
 
       nvim-cmp = {
-        enable = false;
+        enable = true;
         snippet.luasnip.enable = true;
         completion = {
           keyword_length = 1;
@@ -91,13 +92,6 @@
               keyword_length = 5;
             };
           };
-          "luasnip" = {
-            enable = true;
-            option = {
-              "use_show_condition" = false;
-              show_autosnippets = true;
-            };
-          };
           "path" = {
             enable = true;
           };
@@ -111,8 +105,10 @@
           clangd.enable = true;
           cssls.enable = true;
           eslint.enable = true;
+          rust-analyzer.enable = true;
         };
       };
+      lsp-progress.enable = true;
     };
     mappings = {
       normal = {
@@ -132,25 +128,15 @@
         "<leader><Left>" = {action = "'<cmd>:vertical resize -5<CR>'";};
         "<leader><Up>" = {action = "'<cmd>:resize +5<CR>'";};
         "<leader><Down>" = {action = "'<cmd>:resize -5<CR>'";};
+        "gd" = {action = "vim.lsp.buf.definition";};
+        "gD" = {action = "vim.lsp.buf.declaration";};
+        "gI" = {action = "vim.lsp.buf.implementation";};
+        "gr" = {action = "vim.lsp.buf.rename";};
+        "gR" = {action = "vim.lsp.buf.references";};
+        "gA" = {action = "vim.lsp.buf.code_action";};
       };
     };
-
-    extraPlugins = [
-      {
-        plugin = pkgs.vimPlugins.ale;
-        config = ''
-          set omnifunc=ale#completion#OmniFunc
-          let g:ale_completion_enabled = 1
-          let g:ale_completion_autoimport = 1
-          let g:ale_sign_column_always = 1
-          let g:ale_fix_on_save = 1
-          let g:ale_sign_error = '✗'
-          let g:ale_sign_warning = ' '
-          let g:ale_linters_ignore = {
-            \  'haskell': ['ghc'],
-          \}
-        '';
-      }
+    extraPlugins = with pkgs; [
     ];
   };
 }
