@@ -40,6 +40,11 @@
         indent = true;
       };
 
+      nvim-tree = {
+        enable = true;
+        disableNetrw = true;
+      };
+
       nvim-cmp = {
         enable = true;
         snippet.luasnip.enable = true;
@@ -143,6 +148,7 @@
         "gR" = {action = "vim.lsp.buf.references";};
         "gA" = {action = "vim.lsp.buf.code_action";};
         "<F8>" = {action = "\":TagbarToggle<CR>\"";};
+        "<F1>" = {action = "\":NvimTreeToggle<CR>\"";};
         "<TAB>" = {action = "\":tabn<CR>\"";};
         "<S-TAB>" = {action = "\":tabp<CR>\"";};
         "<leader>t" = {action = "\":tabnew<CR>\"";};
