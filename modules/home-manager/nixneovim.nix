@@ -13,7 +13,12 @@
   programs.nixneovim = {
     enable = true;
     globals.mapleader = " ";
-    colorschemes.catppuccin.enable = true;
+    colorschemes.catppuccin = {
+      enable = true;
+      flavour = "mocha";
+      termColors = true;
+      transparentBackground = true;
+    };
 
     options = {
       number = true; # Show line numbers
@@ -29,6 +34,7 @@
     plugins = {
       lightline.enable = true;
       telescope.enable = true;
+      tagbar.enable = true;
       treesitter = {
         enable = true;
         indent = true;
@@ -123,6 +129,8 @@
         "<leader>fg" = {action = "'<cmd>:Telescope live_grep<CR>'";};
         "<leader>fb" = {action = "'<cmd>:Telescope buffers<CR>'";};
         "<leader>fh" = {action = "'<cmd>:Telescope help_tags<CR>'";};
+        "<leader>fs" = {action = "'<cmd>:Telescope lsp_document_symbols<CR>'";};
+        "<leader>fw" = {action = "'<cmd>:Telescope lsp_workspace_symbols<CR>'";};
 
         "<leader><Right>" = {action = "'<cmd>:vertical resize +5<CR>'";};
         "<leader><Left>" = {action = "'<cmd>:vertical resize -5<CR>'";};
@@ -134,9 +142,20 @@
         "gr" = {action = "vim.lsp.buf.rename";};
         "gR" = {action = "vim.lsp.buf.references";};
         "gA" = {action = "vim.lsp.buf.code_action";};
+        "<F8>" = {action = "\":TagbarToggle<CR>\"";};
+        "<TAB>" = {action = "\":tabn<CR>\"";};
+        "<S-TAB>" = {action = "\":tabp<CR>\"";};
+        "<leader>t" = {action = "\":tabnew<CR>\"";};
+      };
+      visual = {
+        "K" = {action = "\":m '>+1<CR>gv=gv\"";};
+        "J" = {action = "\":m '<-2<CR>gv=gv\"";};
+        "H" = {action = "\"<gv\"";};
+        "L" = {action = "\">gv\"";};
       };
     };
     extraPlugins = with pkgs; [
+
     ];
   };
 }
