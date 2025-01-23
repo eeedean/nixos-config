@@ -29,6 +29,8 @@
       expandtab = true;
       tabstop = 8;
       softtabstop = 4;
+      clipboard = "unnamedplus";
+      termguicolors = true;
     };
 
     plugins = {
@@ -147,11 +149,20 @@
         "gr" = {action = "vim.lsp.buf.rename";};
         "gR" = {action = "vim.lsp.buf.references";};
         "gA" = {action = "vim.lsp.buf.code_action";};
-        "<F8>" = {action = "\":TagbarToggle<CR>\"";};
+        "<F2>" = {action = "\":TagbarToggle<CR>\"";};
         "<F1>" = {action = "\":NvimTreeToggle<CR>\"";};
         "<TAB>" = {action = "\":tabn<CR>\"";};
         "<S-TAB>" = {action = "\":tabp<CR>\"";};
         "<leader>t" = {action = "\":tabnew<CR>\"";};
+
+        #debugging
+        "<F8>" = {action = "'<cmd>:call vimspector#ToggleBreakpoint()<CR>'";};
+        "<Leader><F5>" = {action = "'<cmd>:call vimspector#Continue()<CR>'";};
+        "<F5>" = {action = "'<cmd>:call vimspector#Launch()<CR>'";};
+        "<Shift-F5>" = {action = "'<cmd>:call vimspector#Stop()<CR>'";};
+        "<F6>" = {action = "'<cmd>:call vimspector#StepOver()<CR>'";};
+        "<F7>" = {action = "'<cmd>:call vimspector#StepInto()<CR>'";};
+        "<Shift-F7>" = {action = "'<cmd>:call vimspector#StepOut()<CR>'";};
       };
       visual = {
         "K" = {action = "\":m '>+1<CR>gv=gv\"";};
@@ -161,7 +172,11 @@
       };
     };
     extraPlugins = with pkgs; [
-
+      vimPlugins.vimspector
     ];
+    extraConfigLua = ''
+      vim.g.vimspector_base_dir = vim.env.HOME .. "/.config/nvim/vimspector-config"
+      vim.g.vimspector_install_gadgets = { "CodeLLDB" }
+    '';
   };
 }
