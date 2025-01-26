@@ -159,10 +159,10 @@
         "<F8>" = {action = "'<cmd>:call vimspector#ToggleBreakpoint()<CR>'";};
         "<Leader><F5>" = {action = "'<cmd>:call vimspector#Continue()<CR>'";};
         "<F5>" = {action = "'<cmd>:call vimspector#Launch()<CR>'";};
-        "<Shift-F5>" = {action = "'<cmd>:call vimspector#Stop()<CR>'";};
+        "<F10>" = {action = "'<cmd>:call vimspector#Stop()<CR>'";};
         "<F6>" = {action = "'<cmd>:call vimspector#StepOver()<CR>'";};
         "<F7>" = {action = "'<cmd>:call vimspector#StepInto()<CR>'";};
-        "<Shift-F7>" = {action = "'<cmd>:call vimspector#StepOut()<CR>'";};
+        "<Leader><F7>" = {action = "'<cmd>:call vimspector#StepOut()<CR>'";};
       };
       visual = {
         "K" = {action = "\":m '>+1<CR>gv=gv\"";};
