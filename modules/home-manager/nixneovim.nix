@@ -32,6 +32,9 @@
       clipboard = "unnamedplus";
       termguicolors = true;
     };
+    extraConfigVim = ''
+      :set nofixeol
+    '';
 
     plugins = {
       lightline.enable = true;
