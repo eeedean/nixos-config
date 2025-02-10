@@ -23,7 +23,7 @@
     file.".config/zsh/p10k.zsh".source = ../../modules/home-manager/zsh/.p10k.zsh;
     file.".config/zed/settings.json".source = ../../modules/zed/settings.json;
 
-    packages = with pkgs; [ aldente ];
+    packages = with pkgs; [ aldente awscli2 ];
 
     sessionVariables = {
       EDITOR = "vim";
