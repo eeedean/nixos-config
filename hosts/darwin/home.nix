@@ -11,7 +11,16 @@
   imports = [
     ../../modules/home-packages.nix
   ];
-  home = {
+  home = let
+    aws-refresh-mfa = pkgs.python3Packages.buildPythonApplication rec {
+        pname = "aws-refresh-mfa";
+        version = "0.1.0";
+        pyproject = false;
+        propagatedBuildInputs = [ ];
+        dontUnpack = true;
+        installPhase = "install -Dm755 ${./aws-refresh-mfa.py} $out/bin/${pname}";
+    };
+  in {
     stateVersion = "23.11";
 
     username = "${user}";
@@ -23,7 +32,11 @@
     file.".config/zsh/p10k.zsh".source = ../../modules/home-manager/zsh/.p10k.zsh;
     file.".config/zed/settings.json".source = ../../modules/zed/settings.json;
 
-    packages = with pkgs; [ aldente awscli2 ];
+    packages = with pkgs; [ 
+      aldente 
+      awscli2 
+      aws-refresh-mfa
+    ];
 
     sessionVariables = {
       EDITOR = "vim";
