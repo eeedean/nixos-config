@@ -121,6 +121,10 @@
           clangd.enable = true;
           cssls.enable = true;
           eslint.enable = true;
+          jsonls.enable = true;
+          nil.enable = true;
+          pyright.enable = true;
+          typescript-language-server.enable = true;
           rust-analyzer.enable = true;
         };
       };
@@ -154,6 +158,7 @@
         "gA" = {action = "vim.lsp.buf.code_action";};
         "<F2>" = {action = "\":TagbarToggle<CR>\"";};
         "<F1>" = {action = "\":NvimTreeToggle<CR>\"";};
+        "<F3>" = {action = "'<cmd>:lua require\"nvim-tree.api\".tree.find_file({open=true, focus=false})<CR>'";};
         "<TAB>" = {action = "\":tabn<CR>\"";};
         "<S-TAB>" = {action = "\":tabp<CR>\"";};
         "<leader>t" = {action = "\":tabnew<CR>\"";};
