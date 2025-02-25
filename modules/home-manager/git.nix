@@ -46,6 +46,9 @@
       user.signingkey = "~/.ssh/id_ed25519.pub";
       init.defaultBranch = "main";
       signing.signByDefault = true;
+      tag.sort = "version:refname";
+      diff.algorithm = "histogram";
+      help.autocorrect = "prompt";
     };
 
     # GIT - Default Ignores
