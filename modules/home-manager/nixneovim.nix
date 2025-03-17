@@ -45,6 +45,10 @@
         indent = true;
       };
 
+      gitsigns = {
+        enable = true;
+      };
+
       nvim-tree = {
         enable = true;
         disableNetrw = true;
