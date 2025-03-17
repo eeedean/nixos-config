@@ -35,7 +35,7 @@
           echo "obase=2;$1" | bc;
         fi
       };
-      export NIX_REV="6c5c5f5100281f8f4ff23f13edd17d645178c87c";
+      export NIX_REV="5d9b5431f967007b3952c057fc92af49a4c5f3b2";
       export KUBE_EDITOR=nvim;
     '';
     plugins = [

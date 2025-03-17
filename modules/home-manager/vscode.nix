@@ -8,7 +8,7 @@
   # https://mipmip.github.io/home-manager-option-search/?programs.vscode
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.vscode-extensions; [
+    profiles.default.extensions = with pkgs.vscode-extensions; [
       arrterian.nix-env-selector
       bbenoist.nix
       dotjoshjohnson.xml

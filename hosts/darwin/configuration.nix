@@ -37,7 +37,7 @@
   # Environment Configuration
   environment = {
     # Installed Nix Packages
-    systemPackages = [agenix.packages.${system}.default pkgs.cocoapods pkgs.lmstudio ];
+    systemPackages = [agenix.packages.${system}.default pkgs.cocoapods pkgs.postman ];
     etc."pam.d/sudo_local".text = ''
       auth       optional       ${pkgs.pam-reattach}/lib/pam/pam_reattach.so # reattach for tmux
       auth       sufficient     pam_tid.so                                   # allow Touch ID for sudo
@@ -54,10 +54,10 @@
     # Nix Deamon
     # https://mynixos.com/nix-darwin/option/services.nix-daemon.enable
     nix-daemon = {
-      enable = true;
       logFile = "/var/log/nix-daemon.log";
     };
   };
+  ids.gids.nixbld = 350;
 
   # Nix Package Manager
   # https://mynixos.com/nix-darwin/option/nix
