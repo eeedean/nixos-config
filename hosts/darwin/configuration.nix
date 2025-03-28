@@ -116,7 +116,19 @@
       ephemeral = true;
       maxJobs = 8;
       config = {
+        boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
         nix.settings.sandbox = false;
+        nix.settings.experimental-features = [
+          "nix-command"
+          "flakes"
+          "configurable-impure-env"
+        ];
+        nix.extraOptions = ''
+          extra-platforms = x86_64-linux
+          extra-sandbox-paths = /home/builder
+          netrc-file = /home/builder/netrc
+          impure-env = NETRC=/home/builder/netrc
+        '';
         networking = {
           nameservers = ["8.8.8.8" "1.1.1.1"];
         };
@@ -129,6 +141,7 @@
           msize = 128 * 1024;
         };
       };
+      systems = ["aarch64-linux" "x86_64-linux"];
     };
   };
 
