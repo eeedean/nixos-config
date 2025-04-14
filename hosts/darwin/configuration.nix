@@ -37,7 +37,7 @@
   # Environment Configuration
   environment = {
     # Installed Nix Packages
-    systemPackages = [agenix.packages.${system}.default pkgs.cocoapods pkgs.postman ];
+    systemPackages = [agenix.packages.${system}.default pkgs.cocoapods ];
     etc."pam.d/sudo_local".text = ''
       auth       optional       ${pkgs.pam-reattach}/lib/pam/pam_reattach.so # reattach for tmux
       auth       sufficient     pam_tid.so                                   # allow Touch ID for sudo
