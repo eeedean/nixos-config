@@ -6,6 +6,7 @@
     nix-output-monitor
     nushell
     openshift
+    rename
     wget
     jq
   ];
