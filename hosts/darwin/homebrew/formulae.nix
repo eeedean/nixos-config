@@ -1,5 +1,4 @@
 [
   "colima"
-  "rename"
   "switchaudio-osx"
 ]
