@@ -49,6 +49,7 @@
       tag.sort = "version:refname";
       diff.algorithm = "histogram";
       help.autocorrect = "prompt";
+      pager.branch = false;
     };
 
     # GIT - Default Ignores
