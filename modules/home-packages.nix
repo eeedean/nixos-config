@@ -6,6 +6,7 @@
     hl-log-viewer
     nix-output-monitor
     nushell
+    omnix
     openshift
     rename
     wget
