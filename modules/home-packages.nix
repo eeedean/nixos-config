@@ -3,6 +3,7 @@
     coreutils
     universal-ctags
     eza
+    hl-log-viewer
     nix-output-monitor
     nushell
     openshift
