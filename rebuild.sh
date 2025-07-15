@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-nix run nix-darwin -- switch --flake .
+sudo darwin-rebuild switch --flake .

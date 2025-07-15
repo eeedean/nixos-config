@@ -23,7 +23,7 @@
         "docker-compose"
       ];
     };
-    initExtra = ''
+    initContent = ''
       source ~/.secure_profile 2> /dev/null
       source ~/.profile 2> /dev/null
       source ~/.config/zsh/p10k.zsh
@@ -35,7 +35,7 @@
           echo "obase=2;$1" | bc;
         fi
       };
-      export NIX_REV="b3582c75c7f21ce0b429898980eddbbf05c68e55";
+      export NIX_REV="08fcb0dcb59df0344652b38ea6326a2d8271baff";
       export KUBE_EDITOR=nvim;
     '';
     plugins = [
