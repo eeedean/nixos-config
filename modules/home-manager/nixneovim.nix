@@ -107,8 +107,19 @@
       };
       lsp-progress.enable = true;
     };
-    mappings = {
-      normal = {
+    mappings = let 
+      general = {
+        # refactoring
+        "<leader>re" = {action = "\":Refactor extract \"";}; # into func
+        "<leader>rv" = {action = "\":Refactor extract_var \"";};
+        "<leader>ri" = {action = "\":Refactor inline_var\"";};
+        "<leader>rI" = {action = "\":Refactor inline_func\"";};
+        "<F2>" = {action = "\":TagbarToggle<CR>\"";};
+        "<F1>" = {action = "\":NvimTreeToggle<CR>\"";};
+        "<F3>" = {action = "'<cmd>:lua require\"nvim-tree.api\".tree.find_file({open=true, focus=false})<CR>'";};
+      };
+    in {
+      normal = general // {
         "<leader>e" = {action = "'<cmd>:Explore<CR>'";};
         "<leader>q" = {action = "'<cmd>:q<CR>'";};
         "<leader>h" = {action = "'<cmd>:split<CR>'";};
@@ -133,9 +144,7 @@
         "gr" = {action = "vim.lsp.buf.rename";};
         "gR" = {action = "vim.lsp.buf.references";};
         "gA" = {action = "vim.lsp.buf.code_action";};
-        "<F2>" = {action = "\":TagbarToggle<CR>\"";};
-        "<F1>" = {action = "\":NvimTreeToggle<CR>\"";};
-        "<F3>" = {action = "'<cmd>:lua require\"nvim-tree.api\".tree.find_file({open=true, focus=false})<CR>'";};
+
         "<TAB>" = {action = "\":tabn<CR>\"";};
         "<S-TAB>" = {action = "\":tabp<CR>\"";};
         "<leader>t" = {action = "\":tabnew<CR>\"";};
@@ -149,7 +158,7 @@
         "<F7>" = {action = "'<cmd>:call vimspector#StepInto()<CR>'";};
         "<Leader><F7>" = {action = "'<cmd>:call vimspector#StepOut()<CR>'";};
       };
-      visual = {
+      visual = general // {
         "K" = {action = "\":m '>+1<CR>gv=gv\"";};
         "J" = {action = "\":m '<-2<CR>gv=gv\"";};
         "H" = {action = "\"<gv\"";};
@@ -158,6 +167,7 @@
     };
     extraPlugins = with pkgs; [
       vimPlugins.vimspector
+      vimPlugins.refactoring-nvim
     ];
     extraConfigLua = ''
       vim.g.vimspector_base_dir = vim.env.HOME .. "/.config/nvim/vimspector-config"
