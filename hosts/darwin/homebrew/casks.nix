@@ -26,6 +26,7 @@
   "obs"
   "parallels"
   "portfolioperformance"
+  "postman"
   "powershell"
   "rectangle"
   "sensiblesidebuttons"

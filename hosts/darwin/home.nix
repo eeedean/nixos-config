@@ -36,7 +36,6 @@
       aldente 
       awscli2 
       aws-refresh-mfa
-      postman
     ];
 
     sessionVariables = {
