@@ -116,7 +116,7 @@
       enable = true;
       ephemeral = true;
       maxJobs = 8;
-      config = {
+      config = { pkgs, ...}: {
         boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
         nix.settings.sandbox = false;
         nix.settings.experimental-features = [
@@ -125,10 +125,9 @@
           "configurable-impure-env"
         ];
         nix.extraOptions = ''
-          extra-platforms = x86_64-linux
-          extra-sandbox-paths = /home/builder
-          netrc-file = /home/builder/netrc
-          impure-env = NETRC=/home/builder/netrc
+          extra-sandbox-paths = /netrc
+          netrc-file = /netrc
+          impure-env = NETRC=/netrc
         '';
         networking = {
           nameservers = ["8.8.8.8" "1.1.1.1"];
@@ -139,7 +138,14 @@
             memorySize = 8 * 1024;
           };
           cores = 8;
-          msize = 128 * 1024;
+          msize = 256 * 1024;
+        };
+
+        security.sudo.wheelNeedsPassword = false;
+        users.users."builder" = {
+          extraGroups = [
+            "wheel" "users"
+          ];
         };
       };
       systems = ["aarch64-linux" "x86_64-linux"];
