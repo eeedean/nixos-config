@@ -43,7 +43,6 @@
   "vlc"
   "whatsapp"
   "whisky"
-  "wireshark"
   "xbar"
   "yubico-yubikey-manager"
 ]
