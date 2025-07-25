@@ -7,7 +7,11 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixneovim.url = "github:nixneovim/nixneovim";
+    nixneovimplugins.url = "github:NixNeovim/NixNeovimPlugins";
+    nixneovim = {
+      url = "github:nixneovim/nixneovim";
+      inputs.nixneovimplugins.follows = "nixneovimplugins";
+    };
     agenix.url = "github:ryantm/agenix";
 
     nixos-wsl = {
