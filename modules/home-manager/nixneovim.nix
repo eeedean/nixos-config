@@ -10,6 +10,10 @@
     nixneovim.nixosModules.default
   ];
 
+  home.packages = with pkgs; [
+    typescript-language-server
+  ];
+
   programs.nixneovim = {
     enable = true;
     globals.mapleader = " ";
@@ -101,9 +105,22 @@
           jsonls.enable = true;
           nil.enable = true;
           pyright.enable = true;
-          typescript-language-server.enable = true;
           rust-analyzer.enable = true;
         };
+        extraLua.post = ''
+          do -- lsp server config ts_ls
+
+          local setup =  {
+            on_attach = function(client, bufnr)
+              
+              
+            end,
+            
+          }
+          
+            require('lspconfig')["ts_ls"].setup(setup)
+          end -- lsp server config ts_ls
+        '';
       };
       lsp-progress.enable = true;
     };
