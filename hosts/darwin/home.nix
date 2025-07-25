@@ -86,6 +86,17 @@
 
   programs = {
     home-manager.enable = true;
+    lazygit = {
+      enable = true;
+      settings = {
+        gui = {
+          tabWidth = 2;
+          language = "en";
+          timeFormat = "2006-01-02 15:04:05 MST";
+          nerdFontsVersion = "3";
+        };
+      };
+    };
   };
   disabledModules = ["targets/darwin/linkapps.nix"]; # to use my aliasing instead
 }
