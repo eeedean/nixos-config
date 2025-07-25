@@ -22,7 +22,6 @@
   "macfuse"
   "monitorcontrol"
   "nheko"
-  "notion"
   "obs"
   "parallels"
   "portfolioperformance"
