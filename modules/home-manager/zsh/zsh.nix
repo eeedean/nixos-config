@@ -9,7 +9,7 @@
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
-    dotDir = ".config/zsh";
+    dotDir = "${config.home.homeDirectory}/.config/zsh";
     history = {
       size = 99999;
       save = 99999;
@@ -35,7 +35,7 @@
           echo "obase=2;$1" | bc;
         fi
       };
-      export NIX_REV="08fcb0dcb59df0344652b38ea6326a2d8271baff";
+      export NIX_REV="596312aae91421d6923f18cecce934a7d3bfd6b8";
       export KUBE_EDITOR=nvim;
     '';
     plugins = [
