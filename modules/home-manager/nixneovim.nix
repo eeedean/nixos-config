@@ -53,6 +53,10 @@
         enable = true;
       };
 
+      diffview = {
+        enable = true;
+      };
+
       nvim-tree = {
         enable = true;
         disableNetrw = true;
@@ -156,13 +160,14 @@
         "<leader><Up>" = {action = "'<cmd>:resize +5<CR>'";};
         "<leader><Down>" = {action = "'<cmd>:resize -5<CR>'";};
         "gd" = {action = "vim.lsp.buf.definition";};
+        "<leader>gd" = {action = "'<cmd>tab split | lua vim.lsp.buf.definition()<CR>'";};
         "gD" = {action = "vim.lsp.buf.declaration";};
         "gI" = {action = "vim.lsp.buf.implementation";};
         "gr" = {action = "vim.lsp.buf.rename";};
         "gR" = {action = "vim.lsp.buf.references";};
         "gA" = {action = "vim.lsp.buf.code_action";};
 
-        "<TAB>" = {action = "\":tabn<CR>\"";};
+        "<leader><TAB>" = {action = "\":tabn<CR>\"";};
         "<S-TAB>" = {action = "\":tabp<CR>\"";};
         "<leader>t" = {action = "\":tabnew<CR>\"";};
 
