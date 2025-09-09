@@ -20,7 +20,6 @@
 
     file.".config/zsh/p10k.zsh".source = ../../modules/home-manager/zsh/.p10k.zsh;
 
-
     sessionVariables = {
       EDITOR = "nvim";
     };
@@ -31,7 +30,6 @@
       "vi" = "nvim";
       "vim" = "nvim";
     };
-
   };
 
   programs = {

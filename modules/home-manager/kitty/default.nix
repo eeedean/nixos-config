@@ -14,19 +14,18 @@
       size = 14;
     };
 
-    keybindings =
-      {
-        "shift+cmd+t" = "new_tab_with_cwd";
-        "cmd+1" = "goto_tab 1";
-        "cmd+2" = "goto_tab 2";
-        "cmd+3" = "goto_tab 3";
-        "cmd+4" = "goto_tab 4";
-        "cmd+5" = "goto_tab 5";
-        "cmd+6" = "goto_tab 6";
-        "cmd+7" = "goto_tab 7";
-        "cmd+8" = "goto_tab 8";
-        "cmd+9" = "goto_tab 9";
-      };
+    keybindings = {
+      "shift+cmd+t" = "new_tab_with_cwd";
+      "cmd+1" = "goto_tab 1";
+      "cmd+2" = "goto_tab 2";
+      "cmd+3" = "goto_tab 3";
+      "cmd+4" = "goto_tab 4";
+      "cmd+5" = "goto_tab 5";
+      "cmd+6" = "goto_tab 6";
+      "cmd+7" = "goto_tab 7";
+      "cmd+8" = "goto_tab 8";
+      "cmd+9" = "goto_tab 9";
+    };
 
     settings = {
       remember_window_size = true;

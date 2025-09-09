@@ -13,12 +13,12 @@
   ];
   home = let
     aws-refresh-mfa = pkgs.python3Packages.buildPythonApplication rec {
-        pname = "aws-refresh-mfa";
-        version = "0.1.0";
-        pyproject = false;
-        propagatedBuildInputs = [ ];
-        dontUnpack = true;
-        installPhase = "install -Dm755 ${./aws-refresh-mfa.py} $out/bin/${pname}";
+      pname = "aws-refresh-mfa";
+      version = "0.1.0";
+      pyproject = false;
+      propagatedBuildInputs = [];
+      dontUnpack = true;
+      installPhase = "install -Dm755 ${./aws-refresh-mfa.py} $out/bin/${pname}";
     };
   in {
     stateVersion = "23.11";
@@ -32,9 +32,9 @@
     file.".config/zsh/p10k.zsh".source = ../../modules/home-manager/zsh/.p10k.zsh;
     file.".config/zed/settings.json".source = ../../modules/zed/settings.json;
 
-    packages = with pkgs; [ 
-      aldente 
-      awscli2 
+    packages = with pkgs; [
+      aldente
+      awscli2
       aws-refresh-mfa
     ];
 
@@ -70,16 +70,16 @@
       # This should be removed once
       # https://github.com/nix-community/home-manager/issues/1341 is closed.
       aliasApplications = lib.hm.dag.entryAfter ["writeBoundary"] ''
-	new_nix_apps="${config.home.homeDirectory}/Applications/Nix"
-        rm -rf "$new_nix_apps"
-        mkdir -p "$new_nix_apps"
-        find -H -L "$newGenPath/home-path/Applications" -name "*.app" -type d -print | while read -r app; do
-          real_app=$(readlink -f "$app")
-          app_name=$(basename "$app")
-          target_app="$new_nix_apps/$app_name"
-          echo "Alias '$real_app' to '$target_app'"
-          ${pkgs.mkalias}/bin/mkalias "$real_app" "$target_app"
-        done
+        new_nix_apps="${config.home.homeDirectory}/Applications/Nix"
+               rm -rf "$new_nix_apps"
+               mkdir -p "$new_nix_apps"
+               find -H -L "$newGenPath/home-path/Applications" -name "*.app" -type d -print | while read -r app; do
+                 real_app=$(readlink -f "$app")
+                 app_name=$(basename "$app")
+                 target_app="$new_nix_apps/$app_name"
+                 echo "Alias '$real_app' to '$target_app'"
+                 ${pkgs.mkalias}/bin/mkalias "$real_app" "$target_app"
+               done
       '';
     };
   };

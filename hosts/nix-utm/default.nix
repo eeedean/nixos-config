@@ -18,8 +18,12 @@
     ./hardware.nix
     ./configuration.nix
     ./shared-vm.nix
-    /*../../modules/gnome.nix*/
-    /*../../modules/age.nix*/
+    /*
+    ../../modules/gnome.nix
+    */
+    /*
+    ../../modules/age.nix
+    */
     inputs.agenix.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
   ];

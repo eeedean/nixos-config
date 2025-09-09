@@ -81,7 +81,6 @@
     ];
   };
 
-
   services = {
     octoprint = {
       enable = true;

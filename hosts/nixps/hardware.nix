@@ -15,7 +15,7 @@
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
-  boot.kernelParams = [ "mem_sleep_default=deep" ];
+  boot.kernelParams = ["mem_sleep_default=deep"];
   boot.loader.systemd-boot.enable = true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
@@ -51,7 +51,7 @@
     hostName = hostname;
   };
 
-  # doesn't work yet, but maybe it'll be patched at some point? 
+  # doesn't work yet, but maybe it'll be patched at some point?
   services.fprintd = {
     enable = true;
     package = pkgs.fprintd-tod;

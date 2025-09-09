@@ -116,19 +116,19 @@
 
           local setup =  {
             on_attach = function(client, bufnr)
-              
-              
+
+
             end,
-            
+
           }
-          
+
             require('lspconfig')["ts_ls"].setup(setup)
           end -- lsp server config ts_ls
         '';
       };
       lsp-progress.enable = true;
     };
-    mappings = let 
+    mappings = let
       general = {
         # refactoring
         "<leader>re" = {action = "\":Refactor extract \"";}; # into func
@@ -140,52 +140,56 @@
         "<F3>" = {action = "'<cmd>:lua require\"nvim-tree.api\".tree.find_file({open=true, focus=false})<CR>'";};
       };
     in {
-      normal = general // {
-        "<leader>e" = {action = "'<cmd>:Explore<CR>'";};
-        "<leader>q" = {action = "'<cmd>:q<CR>'";};
-        "<leader>h" = {action = "'<cmd>:split<CR>'";};
-        "<leader>v" = {action = "'<cmd>:vsplit<CR>'";};
+      normal =
+        general
+        // {
+          "<leader>e" = {action = "'<cmd>:Explore<CR>'";};
+          "<leader>q" = {action = "'<cmd>:q<CR>'";};
+          "<leader>h" = {action = "'<cmd>:split<CR>'";};
+          "<leader>v" = {action = "'<cmd>:vsplit<CR>'";};
 
-        "<leader>i" = {action = "'<cmd>:lua vim.diagnostic.open_float(nil, {focus=true, scope=\"cursor\"})<CR>'";};
+          "<leader>i" = {action = "'<cmd>:lua vim.diagnostic.open_float(nil, {focus=true, scope=\"cursor\"})<CR>'";};
 
-        "<leader>ff" = {action = "'<cmd>:Telescope find_files<CR>'";};
-        "<leader>fg" = {action = "'<cmd>:Telescope live_grep<CR>'";};
-        "<leader>fb" = {action = "'<cmd>:Telescope buffers<CR>'";};
-        "<leader>fh" = {action = "'<cmd>:Telescope help_tags<CR>'";};
-        "<leader>fs" = {action = "'<cmd>:Telescope lsp_document_symbols<CR>'";};
-        "<leader>fw" = {action = "'<cmd>:Telescope lsp_workspace_symbols<CR>'";};
+          "<leader>ff" = {action = "'<cmd>:Telescope find_files<CR>'";};
+          "<leader>fg" = {action = "'<cmd>:Telescope live_grep<CR>'";};
+          "<leader>fb" = {action = "'<cmd>:Telescope buffers<CR>'";};
+          "<leader>fh" = {action = "'<cmd>:Telescope help_tags<CR>'";};
+          "<leader>fs" = {action = "'<cmd>:Telescope lsp_document_symbols<CR>'";};
+          "<leader>fw" = {action = "'<cmd>:Telescope lsp_workspace_symbols<CR>'";};
 
-        "<leader><Right>" = {action = "'<cmd>:vertical resize +5<CR>'";};
-        "<leader><Left>" = {action = "'<cmd>:vertical resize -5<CR>'";};
-        "<leader><Up>" = {action = "'<cmd>:resize +5<CR>'";};
-        "<leader><Down>" = {action = "'<cmd>:resize -5<CR>'";};
-        "gd" = {action = "vim.lsp.buf.definition";};
-        "<leader>gd" = {action = "'<cmd>tab split | lua vim.lsp.buf.definition()<CR>'";};
-        "gD" = {action = "vim.lsp.buf.declaration";};
-        "gI" = {action = "vim.lsp.buf.implementation";};
-        "gr" = {action = "vim.lsp.buf.rename";};
-        "gR" = {action = "vim.lsp.buf.references";};
-        "gA" = {action = "vim.lsp.buf.code_action";};
+          "<leader><Right>" = {action = "'<cmd>:vertical resize +5<CR>'";};
+          "<leader><Left>" = {action = "'<cmd>:vertical resize -5<CR>'";};
+          "<leader><Up>" = {action = "'<cmd>:resize +5<CR>'";};
+          "<leader><Down>" = {action = "'<cmd>:resize -5<CR>'";};
+          "gd" = {action = "vim.lsp.buf.definition";};
+          "<leader>gd" = {action = "'<cmd>tab split | lua vim.lsp.buf.definition()<CR>'";};
+          "gD" = {action = "vim.lsp.buf.declaration";};
+          "gI" = {action = "vim.lsp.buf.implementation";};
+          "gr" = {action = "vim.lsp.buf.rename";};
+          "gR" = {action = "vim.lsp.buf.references";};
+          "gA" = {action = "vim.lsp.buf.code_action";};
 
-        "<leader><TAB>" = {action = "\":tabn<CR>\"";};
-        "<S-TAB>" = {action = "\":tabp<CR>\"";};
-        "<leader>t" = {action = "\":tabnew<CR>\"";};
+          "<leader><TAB>" = {action = "\":tabn<CR>\"";};
+          "<S-TAB>" = {action = "\":tabp<CR>\"";};
+          "<leader>t" = {action = "\":tabnew<CR>\"";};
 
-        #debugging
-        "<F8>" = {action = "'<cmd>:call vimspector#ToggleBreakpoint()<CR>'";};
-        "<Leader><F5>" = {action = "'<cmd>:call vimspector#Continue()<CR>'";};
-        "<F5>" = {action = "'<cmd>:call vimspector#Launch()<CR>'";};
-        "<F10>" = {action = "'<cmd>:call vimspector#Stop()<CR>'";};
-        "<F6>" = {action = "'<cmd>:call vimspector#StepOver()<CR>'";};
-        "<F7>" = {action = "'<cmd>:call vimspector#StepInto()<CR>'";};
-        "<Leader><F7>" = {action = "'<cmd>:call vimspector#StepOut()<CR>'";};
-      };
-      visual = general // {
-        "K" = {action = "\":m '>+1<CR>gv=gv\"";};
-        "J" = {action = "\":m '<-2<CR>gv=gv\"";};
-        "H" = {action = "\"<gv\"";};
-        "L" = {action = "\">gv\"";};
-      };
+          #debugging
+          "<F8>" = {action = "'<cmd>:call vimspector#ToggleBreakpoint()<CR>'";};
+          "<Leader><F5>" = {action = "'<cmd>:call vimspector#Continue()<CR>'";};
+          "<F5>" = {action = "'<cmd>:call vimspector#Launch()<CR>'";};
+          "<F10>" = {action = "'<cmd>:call vimspector#Stop()<CR>'";};
+          "<F6>" = {action = "'<cmd>:call vimspector#StepOver()<CR>'";};
+          "<F7>" = {action = "'<cmd>:call vimspector#StepInto()<CR>'";};
+          "<Leader><F7>" = {action = "'<cmd>:call vimspector#StepOut()<CR>'";};
+        };
+      visual =
+        general
+        // {
+          "K" = {action = "\":m '>+1<CR>gv=gv\"";};
+          "J" = {action = "\":m '<-2<CR>gv=gv\"";};
+          "H" = {action = "\"<gv\"";};
+          "L" = {action = "\">gv\"";};
+        };
     };
     extraPlugins = with pkgs; [
       vimPlugins.vimspector

@@ -38,7 +38,7 @@
   # Environment Configuration
   environment = {
     # Installed Nix Packages
-    systemPackages = [agenix.packages.${system}.default pkgs.cocoapods ];
+    systemPackages = [agenix.packages.${system}.default pkgs.cocoapods];
     etc."pam.d/sudo_local".text = ''
       auth       optional       ${pkgs.pam-reattach}/lib/pam/pam_reattach.so # reattach for tmux
       auth       sufficient     pam_tid.so                                   # allow Touch ID for sudo
@@ -51,7 +51,6 @@
   # System Services
   # https://mynixos.com/nix-darwin/option/services
   services = {
-
     # Nix Deamon
     # https://mynixos.com/nix-darwin/option/services.nix-daemon.enable
     nix-daemon = {
@@ -102,7 +101,7 @@
       system-features = [
         "nixos-test"
         "apple-virt"
-	"big-parallel"
+        "big-parallel"
       ];
     };
     extraOptions = ''
@@ -116,8 +115,8 @@
       enable = true;
       ephemeral = true;
       maxJobs = 8;
-      config = { pkgs, ...}: {
-        boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
+      config = {pkgs, ...}: {
+        boot.binfmt.emulatedSystems = ["x86_64-linux"];
         nix.settings.sandbox = false;
         nix.settings.experimental-features = [
           "nix-command"
@@ -144,7 +143,8 @@
         security.sudo.wheelNeedsPassword = false;
         users.users."builder" = {
           extraGroups = [
-            "wheel" "users"
+            "wheel"
+            "users"
           ];
         };
       };
