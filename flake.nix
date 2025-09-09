@@ -67,16 +67,16 @@
         inherit inputs nixpkgs home-manager agenix;
       }
     );
-    homeConfigurations."karotte" = let 
+    homeConfigurations."karotte" = let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system}.extend inputs.nixneovim.overlays.default;
-    in 
+    in
       home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
-        modules = [ 
+        modules = [
           ./hosts/karotte/home.nix
           ./modules/home-manager/direnv.nix
           ./modules/home-manager/git.nix
@@ -150,6 +150,21 @@
         };
         modules = [
           ./hosts/nix-hyper-vm
+          home-manager.nixosModules.home-manager
+        ];
+      };
+    nixosConfigurations."octoprint" = let
+      system = "aarch64-linux";
+    in
+      nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {
+          inherit inputs system;
+          user = "dean";
+          hostname = "octoprint";
+        };
+        modules = [
+          ./hosts/octoprint
           home-manager.nixosModules.home-manager
         ];
       };
