@@ -12,6 +12,7 @@
 
   home.packages = with pkgs; [
     typescript-language-server
+    intelephense
   ];
 
   programs.nixneovim = {
@@ -112,7 +113,7 @@
           rust-analyzer.enable = true;
         };
         extraLua.post = ''
-          do -- lsp server config ts_ls
+          do -- lsp server config
 
           local setup =  {
             on_attach = function(client, bufnr)
@@ -123,7 +124,8 @@
           }
 
             require('lspconfig')["ts_ls"].setup(setup)
-          end -- lsp server config ts_ls
+            require('lspconfig')["intelephense"].setup(setup)
+          end -- lsp server config
         '';
       };
       lsp-progress.enable = true;
