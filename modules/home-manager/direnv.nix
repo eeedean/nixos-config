@@ -22,5 +22,7 @@
     # Direnv - Nix Direnv
     # https://mipmip.github.io/home-manager-option-search/?programs.direnv.nix-direnv.enable
     nix-direnv.enable = true;
+
+    config = { hide_env_diff = true; };
   };
 }
