@@ -20,7 +20,7 @@
       montserrat
       nerd-fonts.fira-code
       noto-fonts
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       open-dyslexic
       open-sans
       roboto

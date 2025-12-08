@@ -17,17 +17,16 @@ in
       nixneovim = inputs.nixneovim;
     };
     modules = [
-      {
-        nixpkgs = {
-          overlays = [
-            inputs.nixneovim.overlays.default
-          ];
-        };
-      }
-
-      ./configuration.nix
-
-      agenix.nixosModules.default
-      home-manager.nixosModules.home-manager
+      ({pkgs, ...}:
+        {
+          nixpkgs = {
+            overlays = [
+              inputs.nixneovim.overlays.default
+            ];
+          };
+        })
+        ./configuration.nix
+        agenix.nixosModules.default
+        home-manager.nixosModules.home-manager
     ];
   }

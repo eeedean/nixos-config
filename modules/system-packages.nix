@@ -25,7 +25,7 @@
     kubelogin
     kubeseal
     lame
-    mysql-client
+    mariadb.client
     nix-direnv
     nmap
     nil
