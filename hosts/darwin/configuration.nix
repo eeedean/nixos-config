@@ -62,7 +62,7 @@
   # Nix Package Manager
   # https://mynixos.com/nix-darwin/option/nix
   nix = {
-    package = pkgs.nixVersions.nix_2_28;
+    package = pkgs.nixVersions.nix_2_32;
     # Nix - GC (Garbage Collection)
     # https://mynixos.com/nix-darwin/option/nix.gc
     gc = {
