@@ -36,6 +36,7 @@
       aldente
       awscli2
       aws-refresh-mfa
+      bruno
     ];
 
     sessionVariables = {
