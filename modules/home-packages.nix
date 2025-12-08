@@ -3,6 +3,7 @@
     coreutils
     universal-ctags
     eza
+    gh
     hl-log-viewer
     nix-output-monitor
     nushell
