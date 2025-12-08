@@ -6,6 +6,9 @@
 }: {
   #file.".p10k.zsh".source = ./.p10k.zsh;
 
+  home.packages = [
+    pkgs.nix-zsh-completions
+  ];
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
