@@ -14,14 +14,14 @@ in
     inherit system;
     specialArgs = {
       inherit inputs system user hostname agenix;
-      nixneovim = inputs.nixneovim;
+      nixvim = inputs.nixvim;
     };
     modules = [
       ({pkgs, ...}:
         {
           nixpkgs = {
             overlays = [
-              inputs.nixneovim.overlays.default
+              inputs.nixvim.overlays.default
             ];
           };
         })

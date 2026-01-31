@@ -11,7 +11,7 @@
     {
       nixpkgs = {
         overlays = [
-          inputs.nixneovim.overlays.default
+          inputs.nixvim.overlays.default
         ];
       };
     }

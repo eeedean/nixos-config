@@ -5,7 +5,7 @@
   user,
   hostname,
   agenix,
-  nixneovim,
+  nixvim,
   ...
 }: {
   # Create /etc/zshrc that loads the nix-darwin environment.
@@ -194,7 +194,7 @@
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.extraSpecialArgs = {
-    inherit user hostname nixneovim system;
+    inherit user hostname nixvim system;
     age = config.age;
   };
   home-manager.users.${user} = {
@@ -203,7 +203,7 @@
       ../../modules/home-manager/direnv.nix
       ../../modules/home-manager/git.nix
       ../../modules/home-manager/vscode.nix
-      ../../modules/home-manager/nixneovim.nix
+      ../../modules/home-manager/nixvim.nix
       ../../modules/home-manager/tmux.nix
       ../../modules/home-manager/zsh/zsh.nix
       ../../modules/home-manager/wezterm/wezterm.nix

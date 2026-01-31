@@ -6,7 +6,7 @@
   user,
   hostname,
   agenix,
-  nixneovim,
+  nixvim,
   ...
 }: {
   imports = [
@@ -77,14 +77,14 @@
   home-manager.extraSpecialArgs = {
     inherit user hostname system;
     age = config.age;
-    nixneovim = inputs.nixneovim;
+    nixvim = inputs.nixvim;
   };
   home-manager.users.${user} = {
     imports = [
       ./home.nix
       ../../modules/home-manager/direnv.nix
       ../../modules/home-manager/git.nix
-      ../../modules/home-manager/nixneovim.nix
+      ../../modules/home-manager/nixvim.nix
       ../../modules/home-manager/zsh/zsh.nix
       ../../modules/home-manager/wezterm/wezterm.nix
     ];

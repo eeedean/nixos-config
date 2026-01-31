@@ -39,7 +39,7 @@
   home-manager.useUserPackages = true;
   home-manager.extraSpecialArgs = {
     inherit user hostname system;
-    inherit (inputs) nixneovim agenix;
+    inherit (inputs) nixvim agenix;
     age = config.age;
   };
   home-manager.users.${user} = {

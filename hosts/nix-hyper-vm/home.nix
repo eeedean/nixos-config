@@ -13,7 +13,7 @@
     ../../modules/home-manager/direnv.nix
     ../../modules/home-manager/git.nix
     ../../modules/home-manager/vscode.nix
-    ../../modules/home-manager/nixneovim.nix
+    ../../modules/home-manager/nixvim.nix
     ../../modules/home-manager/zsh/zsh.nix
     ../../modules/home-manager/wezterm/wezterm.nix
   ];

@@ -6,7 +6,7 @@
   lib,
   hostname,
   age,
-  nixneovim,
+  nixvim,
   ...
 }: {
   imports = [

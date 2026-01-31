@@ -73,7 +73,7 @@
   home-manager.useUserPackages = true;
   home-manager.extraSpecialArgs = {
     inherit user hostname system;
-    inherit (inputs) nixneovim;
+    inherit (inputs) nixvim;
   };
   home-manager.users.${user} = {
     imports = [

@@ -2,15 +2,14 @@
   description = "Personal NixOS Configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/a672be65651c80d3f592a89b3945466584a22069";
+    nixpkgs.url = "github:nixos/nixpkgs/bfc1b8a4574108ceef22f02bafcf6611380c100d";
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixneovimplugins.url = "github:NixNeovim/NixNeovimPlugins";
-    nixneovim = {
-      url = "github:nixneovim/nixneovim";
-      inputs.nixneovimplugins.follows = "nixneovimplugins";
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix.url = "github:ryantm/agenix";
 
@@ -35,7 +34,7 @@
     home-manager,
     nix-darwin,
     agenix,
-    nixneovim,
+    nixvim,
     nixos-wsl,
     ...
   }: let
@@ -69,7 +68,7 @@
     );
     homeConfigurations."karotte" = let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system}.extend inputs.nixneovim.overlays.default;
+      pkgs = nixpkgs.legacyPackages.${system}.extend inputs.nixvim.overlays.default;
     in
       home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
@@ -80,7 +79,7 @@
           ./hosts/karotte/home.nix
           ./modules/home-manager/direnv.nix
           ./modules/home-manager/git.nix
-          ./modules/home-manager/nixneovim.nix
+          ./modules/home-manager/nixvim.nix
           ./modules/home-manager/zsh/zsh.nix
           ./modules/home-manager/wezterm/wezterm.nix
         ];
@@ -90,7 +89,7 @@
         extraSpecialArgs = {
           inherit system;
           user = "dean";
-          nixneovim = inputs.nixneovim;
+          nixvim = inputs.nixvim;
         };
       };
     nixosConfigurations."NixUTM" = let
