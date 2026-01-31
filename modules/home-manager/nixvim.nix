@@ -11,8 +11,6 @@
   ];
 
   home.packages = with pkgs; [
-    typescript-language-server
-    intelephense
   ];
 
   programs.nixvim = {
@@ -105,9 +103,23 @@
         };
       };
 
-      lspconfig = {
+      lsp = {
         enable = true;
         servers = {
+          "*" = {
+            config = {
+              capabilities = {
+                textDocument = {
+                  semanticTokens = {
+                    multilineTokenSupport = true;
+                  };
+                };
+              };
+              root_markers = [
+                ".git"
+              ];
+            };
+          };
           bashls.enable = true;
           clangd.enable = true;
           cssls.enable = true;
@@ -115,21 +127,17 @@
           jsonls.enable = true;
           nil.enable = true;
           pyright.enable = true;
-          rust-analyzer.enable = true;
+          rust_analyzer = {
+            installCargo = false;
+            installRustc = false;
+            enable = true;
+          };
+          ts_ls.enable = true;
+          intelephense = {
+            enable = true;
+            package = pkgs.intelephense;
+          };
         };
-        extraLua.post = ''
-          -- lsp server config
-          local setup =  {
-            on_attach = function(client, bufnr)
-
-
-            end,
-
-          }
-
-          require('lspconfig')["ts_ls"].setup(setup)
-          require('lspconfig')["intelephense"].setup(setup)
-        '';
       };
       lsp-progress.enable = true;
       web-devicons.enable = true;
@@ -253,7 +261,7 @@
 
       {
         key = "gd";
-        action = "vim.lsp.buf.definition";
+        action = "<cmd>lua vim.lsp.buf.definition()<CR>";
         mode = "n";
       }
       {
@@ -263,27 +271,27 @@
       }
       {
         key = "gD";
-        action = "vim.lsp.buf.declaration";
+        action = "<cmd>lua vim.lsp.buf.declaration()<CR>";
         mode = "n";
       }
       {
         key = "gI";
-        action = "vim.lsp.buf.implementation";
+        action = "<cmd>lua vim.lsp.buf.implementation()<CR>";
         mode = "n";
       }
       {
         key = "gr";
-        action = "vim.lsp.buf.rename";
+        action = "<cmd>lua vim.lsp.buf.rename()<CR>";
         mode = "n";
       }
       {
         key = "gR";
-        action = "vim.lsp.buf.references";
+        action = "<cmd>lua vim.lsp.buf.references()<CR>";
         mode = "n";
       }
       {
         key = "gA";
-        action = "vim.lsp.buf.code_action";
+        action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
         mode = "n";
       }
 
