@@ -14,7 +14,6 @@
   "epoccam"
   "firefox"
   "gimp"
-  "glance"
   "google-chrome"
   "jdownloader"
   "jetbrains-toolbox"
