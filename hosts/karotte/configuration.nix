@@ -140,4 +140,14 @@
       options = "--delete-older-than 7d";
     };
   };
+
+  /* As soon as this computer acutally becomes real, I gotta change that */
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/karotte-root";
+    fsType = "ext4";
+  };
+
+  boot.loader.grub = {
+    enable = false;
+  };
 }

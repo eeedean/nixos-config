@@ -21,9 +21,7 @@
     /*
     ../../modules/gnome.nix
     */
-    /*
     ../../modules/age.nix
-    */
     inputs.agenix.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
   ];

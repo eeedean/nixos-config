@@ -1,0 +1,97 @@
+name: Build NixOS configurations
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  linux-x86-build:
+    name: nixosConfigurations.${{ matrix.config }} (x86_64)
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - wsl
+          - karotte
+          - NiXPS
+          - VirtualNix
+          - NixHyperVM
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - name: Log Nix info
+        run: |
+          nix --version
+          nix show-config
+      - name: Restore and save Nix store
+        uses: nix-community/cache-nix-action@106bba72ed8e29c8357661199511ef07790175e9 # v7
+        with:
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/flake.lock') }}
+          restore-prefixes-first-match: nix-${{ runner.os }}-
+          gc-max-store-size: 6G
+      - name: Build nixosConfiguration
+        run: nix build --no-link .#nixosConfigurations.${{ matrix.config }}.config.system.build.toplevel
+
+  linux-aarch64-build:
+    name: nixosConfigurations.${{ matrix.config }} (aarch64)
+    runs-on: ubuntu-24.04-arm
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - NixUTM
+          - octoprint
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - name: Log Nix info
+        run: |
+          nix --version
+          nix show-config
+      - name: Restore and save Nix store
+        uses: nix-community/cache-nix-action@106bba72ed8e29c8357661199511ef07790175e9 # v7
+        with:
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/flake.lock') }}
+          restore-prefixes-first-match: nix-${{ runner.os }}-
+          gc-max-store-size: 6G
+      - name: Build nixosConfiguration
+        run: nix build --no-link .#nixosConfigurations.${{ matrix.config }}.config.system.build.toplevel
+
+  darwin-build:
+    name: darwinConfigurations.MBP-von-Dean.system
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - name: Log Nix info
+        run: |
+          nix --version
+          nix show-config
+      - name: Restore and save Nix store
+        uses: nix-community/cache-nix-action@106bba72ed8e29c8357661199511ef07790175e9 # v7
+        with:
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/flake.lock') }}
+          restore-prefixes-first-match: nix-${{ runner.os }}-
+          gc-max-store-size: 6G
+      - name: Build darwinConfiguration
+        run: nix build --no-link .#darwinCiConfigurations.MBP-von-Dean.system

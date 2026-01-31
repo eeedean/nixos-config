@@ -55,12 +55,10 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   virtualisation.hypervGuest.enable = true;
-  virtualisation.hypervGuest.videoMode = "1280x720";
 
   users.users.gdm.extraGroups = ["video"];
 
   services.libinput.enable = true;
 
   hardware.pulseaudio.enable = false;
-  sound.enable = false;
 }

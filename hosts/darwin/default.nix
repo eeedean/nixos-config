@@ -7,6 +7,7 @@
   user,
   hostname,
   agenix,
+  darwinCiModule ? null,
   ...
 }: let
   system = "aarch64-darwin";
@@ -31,6 +32,6 @@ in {
 
       agenix.nixosModules.default
       home-manager.darwinModules.home-manager
-    ];
+    ] ++ lib.optional (darwinCiModule != null) darwinCiModule;
   };
 }

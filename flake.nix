@@ -53,6 +53,13 @@
         inherit inputs nixpkgs home-manager user hostname nix-darwin agenix;
       }
     );
+    darwinCiConfigurations = (
+      import ./hosts/darwin {
+        inherit (nixpkgs) lib;
+        inherit inputs nixpkgs home-manager user hostname nix-darwin agenix;
+        darwinCiModule = ./modules/ci/disable-linux-builder.nix;
+      }
+    );
 
     nixosConfigurations.wsl = (
       import ./hosts/wsl/default.nix {

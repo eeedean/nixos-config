@@ -1,13 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  user,
-  hostname,
-  age,
-  ...
-}: {
+{ config, lib, pkgs, inputs, user, hostname, age, ... }: {
   imports = [
     ../../modules/home-packages.nix
     ../../modules/home-manager/direnv.nix
@@ -21,19 +12,13 @@
   ];
   home = {
     stateVersion = "23.11";
-
     username = "${user}";
-
     file.".config/zsh/p10k.zsh".source = ../../modules/home-manager/zsh/.p10k.zsh;
-
     packages = with pkgs; [];
-
-    # Session Variables
     sessionVariables = {
       EDITOR = "nvim";
       WAYLAND_DISPLAY = "true";
     };
-
     shellAliases = {
       "vsc" = "code";
       "formatjson" = "python -m json.tool";
@@ -41,7 +26,6 @@
       "vi" = "nvim";
       "vim" = "nvim";
     };
-
     activation = {
       ownSecrets = lib.hm.dag.entryAfter ["writeBoundary"] ''
         $DRY_RUN_CMD /run/wrappers/bin/sudo chown -R ${user} /run/agenix/
@@ -51,10 +35,7 @@
       '';
     };
   };
-
-  # Programs
   programs = {
-    # Home Manager
     home-manager.enable = true;
   };
 }

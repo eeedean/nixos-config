@@ -16,7 +16,7 @@
     stateVersion = "23.11";
 
     username = "${user}";
-    homeDirectory = "/home/${user}/";
+    homeDirectory = "/home/${user}";
 
     file.".config/zsh/p10k.zsh".source = ../../modules/home-manager/zsh/.p10k.zsh;
 
