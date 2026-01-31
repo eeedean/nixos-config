@@ -9,7 +9,7 @@
     curl
     diff-so-fancy
     docker-client
-    dogdns
+    doggo
     ffmpeg
     git
     gnupg

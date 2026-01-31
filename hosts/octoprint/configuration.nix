@@ -22,7 +22,7 @@
     curl
     diff-so-fancy
     docker-client
-    dogdns
+    doggo
     git
     gnupg
     hexedit
