@@ -11,6 +11,8 @@
     sensibleOnTop = false;
     terminal = "tmux-256color";
     historyLimit = 100000;
+
+    tmuxp.enable = true;
     plugins = with pkgs; [
       tmuxPlugins.dracula
       tmuxPlugins.better-mouse-mode
