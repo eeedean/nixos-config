@@ -43,8 +43,6 @@
   };
 
   services.logind.lidSwitch = "suspend";
-  systemd.sleep.extraConfig = ''
-  '';
 
   networking = {
     networkmanager.enable = true;

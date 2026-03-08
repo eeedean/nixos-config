@@ -29,7 +29,7 @@
       discord
       enpass
       firefox
-      jetbrains.idea-ultimate
+      jetbrains.idea
       telegram-desktop
       usbutils
     ];
@@ -38,7 +38,7 @@
     sessionVariables = {
       EDITOR = "nvim";
       WAYLAND_DISPLAY = "true";
-      PATH = "$PATH:${pkgs.jetbrains.idea-ultimate}/idea-ultimate/bin";
+      PATH = "$PATH:${pkgs.jetbrains.idea}/idea-ultimate/bin";
     };
 
     shellAliases = {
