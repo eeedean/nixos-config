@@ -5,6 +5,7 @@
     eza
     gh
     hl-log-viewer
+    lnav
     nix-output-monitor
     nushell
     omnix
