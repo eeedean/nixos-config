@@ -4,11 +4,7 @@
   pkgs,
   ...
 }: {
-  # Fonts
-  # https://search.nixos.org/options?channel=unstable&show=fonts
   fonts = {
-    # Font Packages
-    # https://search.nixos.org/options?channel=unstable&show=fonts.fonts
     packages = with pkgs; [
       dejavu_fonts
       fira-code-symbols

@@ -4,8 +4,6 @@
   pkgs,
   ...
 }: {
-  # Visual Studio Code
-  # https://mipmip.github.io/home-manager-option-search/?programs.vscode
   programs.vscode = {
     enable = true;
     profiles.default.extensions = with pkgs.vscode-extensions; [
