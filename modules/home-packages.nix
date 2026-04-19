@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
+    attic-client
     coreutils
     universal-ctags
     eza

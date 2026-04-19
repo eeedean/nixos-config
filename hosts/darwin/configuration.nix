@@ -89,6 +89,9 @@
       trusted-users = [
         "${user}"
       ];
+      substituters = [ "https://nixcache.redoak.blue-atlas.cloud/nix-cache" ];
+      trusted-public-keys = [ "nix-cache:cK6Fq5BF/uopcJRAe5lIVO51Z191+ueWyxR4lr0W7H0=" ];
+
 
       # Nix - Settings - Experimental Features
       # https://mynixos.com/nix-darwin/option/nix.settings.
