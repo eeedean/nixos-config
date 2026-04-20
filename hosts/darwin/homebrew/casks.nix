@@ -43,5 +43,5 @@
   "whatsapp"
   "whisky"
   "xbar"
-  "yubico-yubikey-manager"
+  "yubico-authenticator" 
 ]
