@@ -13,11 +13,17 @@
     historyLimit = 100000;
 
     tmuxp.enable = true;
-    plugins = with pkgs; [
-      tmuxPlugins.dracula
-      tmuxPlugins.better-mouse-mode
+    plugins = with pkgs.tmuxPlugins; [
+      {
+        plugin = dracula;
+        extraConfig = ''
+          set -g @dracula-show-fahrenheit false
+        '';
+      }
+      better-mouse-mode
     ];
     extraConfig = ''
+      set-option -g renumber-windows on
     '';
   };
 }
