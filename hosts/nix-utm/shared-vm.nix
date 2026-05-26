@@ -1,9 +1,5 @@
 {
-  config,
   pkgs,
-  lib,
-  currentSystem,
-  currentSystemName,
   ...
 }: {
   # Be careful updating this.

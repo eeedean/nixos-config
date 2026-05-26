@@ -1,23 +1,16 @@
 {
   config,
   pkgs,
-  system,
-  user,
-  hostname,
-  agenix,
-  nixvim,
   ...
-}: {
+}:
+let
+  user = "edean";
+  hostname = "MBP-von-Dean";
+in {
+  identity.user = user;
+
   # Create /etc/zshrc that loads the nix-darwin environment.
   programs.zsh.enable = true; # default shell on catalina
-
-  # Imports
-  imports = [
-    ../../modules/fonts.nix
-    ../../modules/age.nix
-    ../../modules/system-packages.nix
-    ./homebrew
-  ];
 
   # MacOS User & Shell
   users.users."${user}" = {
@@ -38,7 +31,7 @@
   # Environment Configuration
   environment = {
     # Installed Nix Packages
-    systemPackages = [agenix.packages.${system}.default pkgs.cocoapods];
+    systemPackages = [pkgs.cocoapods];
     etc."pam.d/sudo_local".text = ''
       auth       optional       ${pkgs.pam-reattach}/lib/pam/pam_reattach.so # reattach for tmux
       auth       sufficient     pam_tid.so                                   # allow Touch ID for sudo
@@ -192,25 +185,5 @@
 
     # System Version
     stateVersion = 4;
-  };
-
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.extraSpecialArgs = {
-    inherit user hostname nixvim system;
-    age = config.age;
-  };
-  home-manager.users.${user} = {
-    imports = [
-      ./home.nix
-      ../../modules/home-manager/direnv.nix
-      ../../modules/home-manager/git.nix
-      ../../modules/home-manager/vscode.nix
-      ../../modules/home-manager/nixvim.nix
-      ../../modules/home-manager/tmux.nix
-      ../../modules/home-manager/zsh/zsh.nix
-      ../../modules/home-manager/wezterm/wezterm.nix
-      ../../modules/home-manager/kitty
-    ];
   };
 }

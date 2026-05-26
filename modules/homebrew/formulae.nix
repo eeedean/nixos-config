@@ -1,4 +1,5 @@
 [
+  "acli"
   "colima"
   "switchaudio-osx"
 ]

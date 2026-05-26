@@ -2,13 +2,8 @@
   config,
   lib,
   pkgs,
-  system,
-  nixvim,
   ...
 }: {
-  imports = [
-    nixvim.homeModules.nixvim
-  ];
 
   home.packages = with pkgs; [
   ];

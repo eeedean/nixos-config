@@ -4,10 +4,11 @@
   modulesPath,
   pkgs,
   lib,
-  hostname,
-  user,
   ...
-}: {
+}:
+let
+  hostname = "VirtualNix";
+in {
   imports = [];
 
   # Use the systemd-boot EFI boot loader.

@@ -1,15 +1,14 @@
 {
-  inputs,
-  config,
   modulesPath,
-  pkgs,
   lib,
-  hostname,
-  user,
+  pkgs,
   ...
-}: {
+}:
+let
+  hostname = "octoprint";
+in {
   imports = [
-    "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+    "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
   ];
 
   networking = {

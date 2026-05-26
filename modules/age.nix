@@ -2,15 +2,17 @@
   config,
   lib,
   pkgs,
-  system,
-  user,
   ...
-}: let
+}:
+let
+  user = config.identity.user;
   homedir =
-    if (lib.strings.hasSuffix "darwin" system)
+    if (lib.strings.hasSuffix "darwin" pkgs.stdenv.hostPlatform.system)
     then "/Users/${user}"
     else "/home/${user}";
 in {
+  environment.systemPackages = [ pkgs.agenix ];
+
   age = {
     secrets = {
       secure_profile = {

@@ -1,19 +1,12 @@
 {
-  config,
   pkgs,
-  inputs,
-  system,
-  user,
-  hostname,
-  agenix,
-  nixvim,
   ...
-}: {
-  imports = [
-    ../../modules/fonts.nix
-    ../../modules/age.nix
-    ../../modules/system-packages.nix
-  ];
+}:
+let
+  user = "edean";
+  hostname = "wsl-nixos";
+in {
+  identity.user = user;
 
   nixpkgs = {
     config.allowUnfree = true;
@@ -50,8 +43,6 @@
     ];
   };
 
-  environment.systemPackages = [agenix.packages.${system}.default];
-
   system.stateVersion = "23.11";
 
   wsl = {
@@ -70,24 +61,6 @@
     enable = true;
     enableOnBoot = true;
     autoPrune.enable = true;
-  };
-
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.extraSpecialArgs = {
-    inherit user hostname system;
-    age = config.age;
-    nixvim = inputs.nixvim;
-  };
-  home-manager.users.${user} = {
-    imports = [
-      ./home.nix
-      ../../modules/home-manager/direnv.nix
-      ../../modules/home-manager/git.nix
-      ../../modules/home-manager/nixvim.nix
-      ../../modules/home-manager/zsh/zsh.nix
-      ../../modules/home-manager/wezterm/wezterm.nix
-    ];
   };
 
   nix = {

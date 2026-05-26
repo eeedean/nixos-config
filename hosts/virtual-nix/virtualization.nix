@@ -1,14 +1,10 @@
 {
-  config,
   pkgs,
-  inputs,
-  system,
-  user,
-  hostname,
   ...
-}: {
-  imports = [
-  ];
+}:
+let
+  user = "dean";
+in {
   virtualisation.docker.enable = true;
   environment.systemPackages = with pkgs; [];
   virtualisation.libvirtd = {

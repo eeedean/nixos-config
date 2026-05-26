@@ -3,10 +3,11 @@
   modulesPath,
   pkgs,
   lib,
-  hostname,
-  user,
   ...
-}: {
+}:
+let
+  hostname = "NixUTM";
+in {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
   ];

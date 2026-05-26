@@ -1,16 +1,16 @@
 {
   config,
   pkgs,
-  user,
   lib,
-  hostname,
-  age,
-  nixvim,
   ...
-}: {
+}:
+let
+  hostname = "MBP-von-Dean";
+in {
   imports = [
-    ../../modules/home-packages.nix
+    ../../users/edean/interactive.nix
   ];
+
   home = let
     aws-refresh-mfa = pkgs.python3Packages.buildPythonApplication rec {
       pname = "aws-refresh-mfa";
@@ -21,16 +21,8 @@
       installPhase = "install -Dm755 ${./aws-refresh-mfa.py} $out/bin/${pname}";
     };
   in {
-    stateVersion = "23.11";
-
-    username = "${user}";
-
-    homeDirectory = "/Users/${user}";
-
     file."Library/Application\ Support/xbar/plugins/bahninfo.5s.sh".source = ./xbar/bahninfo.5s.sh;
     file."Library/Application\ Support/xbar/plugins/CalendarLite.1m.sh".source = ./xbar/CalendarLite.1m.sh;
-    file.".config/zsh/p10k.zsh".source = ../../modules/home-manager/zsh/.p10k.zsh;
-    file.".config/zed/settings.json".source = ../../modules/zed/settings.json;
 
     packages = with pkgs; [
       aldente
@@ -40,18 +32,12 @@
     ];
 
     sessionVariables = {
-      EDITOR = "vim";
       PATH = "$PATH:$HOME/Applications:/opt/homebrew/bin";
     };
 
     shellAliases = {
-      "vsc" = "code";
-      "formatjson" = "python -m json.tool";
       "brewupdate" = "brew update && brew upgrade && brew upgrade --cask && brew cleanup";
       "listening-apps" = "lsof -nP -i | grep LISTEN";
-      "ls" = "eza";
-      "vi" = "nvim";
-      "vim" = "nvim";
       "gen-mac-addr" = ''hexdump -n5 -e'/5 "32" 5/1 ":%02X"' /dev/random | cut -c 1-'';
     };
 
@@ -61,13 +47,6 @@
           /usr/sbin/scutil --set HostName "${hostname}.local"
         fi
       '';
-      ownSecrets = lib.hm.dag.entryAfter ["writeBoundary"] ''
-        /usr/bin/sudo chown ${user} /run/agenix/*
-        /usr/bin/sudo cp ${age.secrets.id_rsa.path} /Users/${user}/.ssh/id_rsa
-        /usr/bin/sudo cp ${age.secrets.id_rsa_pub.path} /Users/${user}/.ssh/id_rsa.pub
-        /usr/bin/sudo chown ${user} /Users/${user}/.ssh/id_rsa.pub /Users/${user}/.ssh/id_rsa
-      '';
-
       # This should be removed once
       # https://github.com/nix-community/home-manager/issues/1341 is closed.
       aliasApplications = lib.hm.dag.entryAfter ["writeBoundary"] ''
@@ -86,7 +65,6 @@
   };
 
   programs = {
-    home-manager.enable = true;
     lazygit = {
       enable = true;
       settings = {

@@ -1,18 +1,12 @@
 {
-  config,
   pkgs,
-  inputs,
-  system,
-  user,
-  hostname,
   ...
-}: {
-  imports = [
-    ../../modules/fonts.nix
-    ../../modules/locale-de.nix
-    ../../modules/firewall.nix
-    ../../modules/nix-settings.nix
-  ];
+}:
+let
+  user = "dean";
+  hostname = "octoprint";
+in {
+  identity.user = user;
 
   environment.systemPackages = with pkgs; [
     asciidoctor
@@ -69,18 +63,6 @@
     initialPassword = "changeme";
   };
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.extraSpecialArgs = {
-    inherit user hostname system;
-    inherit (inputs) nixvim;
-  };
-  home-manager.users.${user} = {
-    imports = [
-      ./home.nix
-    ];
-  };
-
   services = {
     octoprint = {
       enable = true;
@@ -112,4 +94,6 @@
     ];
     allowedUDPPorts = allowedTCPPorts;
   };
+
+  system.stateVersion = "24.11";
 }

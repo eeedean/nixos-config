@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  user,
   ...
 }: {
   home.file.".ssh/allowed_signers".text = "* ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOoOK2BxZdNrWgli6jnYOdlgl6o8rjk7N9FDFo3rfU3m dean.eckert@red-oak-consulting.com";

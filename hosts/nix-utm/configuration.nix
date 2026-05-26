@@ -1,18 +1,12 @@
 {
-  config,
   pkgs,
-  inputs,
-  system,
-  user,
-  hostname,
   ...
-}: {
-  imports = [
-    ../../modules/fonts.nix
-    ../../modules/system-packages.nix
-    ../../modules/locale-de.nix
-    ../../modules/nix-settings.nix
-  ];
+}:
+let
+  user = "dean";
+  hostname = "NixUTM";
+in {
+  identity.user = user;
 
   nixpkgs.config.allowUnfree = true;
 
@@ -33,16 +27,5 @@
     initialPassword = "changeme";
   };
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.extraSpecialArgs = {
-    inherit user hostname system;
-    inherit (inputs) nixvim agenix;
-    age = config.age;
-  };
-  home-manager.users.${user} = {
-    imports = [
-      ./home.nix
-    ];
-  };
+  system.stateVersion = "24.11";
 }

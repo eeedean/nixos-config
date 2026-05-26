@@ -3,10 +3,11 @@
   modulesPath,
   pkgs,
   lib,
-  hostname,
-  user,
   ...
-}: {
+}:
+let
+  hostname = "NixHyperVM";
+in {
   imports = [
   ];
 

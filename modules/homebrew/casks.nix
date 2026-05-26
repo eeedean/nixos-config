@@ -29,7 +29,6 @@
   "rectangle"
   "sensiblesidebuttons"
   "signal"
-  "skype"
   "slack"
   "sourcetree"
   "spotify"
@@ -43,5 +42,5 @@
   "whatsapp"
   "whisky"
   "xbar"
-  "yubico-authenticator" 
+  "yubico-authenticator"
 ]

@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: {
-  #file.".p10k.zsh".source = ./.p10k.zsh;
+  home.file.".config/zsh/p10k.zsh".source = ./.p10k.zsh;
 
   home.packages = [
     pkgs.nix-zsh-completions

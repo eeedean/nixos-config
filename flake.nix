@@ -1,8 +1,12 @@
 {
-  description = "Personal NixOS Configuration";
+  description = "Hosts repository for NixOS and nix-darwin configurations";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/4c1018dae018162ec878d42fec712642d214fdfa";
+    home-manager = {
+      url = "github:nix-community/home-manager/5b56ad02dc643808b8af6d5f3ff179e2ce9593f4";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,152 +32,189 @@
     };
   };
 
-  outputs = inputs @ {
-    self,
+  outputs = self @ {
     nixpkgs,
     home-manager,
     nix-darwin,
     agenix,
     nixvim,
     nixos-wsl,
+    disko,
     ...
   }: let
-    user = "edean";
-    hostname = "MBP-von-Dean";
-    forAllSystems = function:
-      nixpkgs.lib.genAttrs ["aarch64-darwin" "x86_64-darwin" "aarch64-linux" "x86_64-linux"] (system:
-        function {
-          inherit system;
-          pkgs = nixpkgs.legacyPackages.${system};
-        });
-  in {
-    darwinConfigurations = (
-      import ./hosts/darwin {
-        inherit (nixpkgs) lib;
-        inherit inputs nixpkgs home-manager user hostname nix-darwin agenix;
-      }
-    );
-    darwinCiConfigurations = (
-      import ./hosts/darwin {
-        inherit (nixpkgs) lib;
-        inherit inputs nixpkgs home-manager user hostname nix-darwin agenix;
-        darwinCiModule = ./modules/ci/disable-linux-builder.nix;
-      }
-    );
+    deansModules = import ./modules;
+    flakeLib = import ./lib/builders.nix {
+      inherit
+        agenix
+        home-manager
+        deansModules
+        nix-darwin
+        nixpkgs
+        nixvim
+      ;
+    };
+    mkNixosHost = flakeLib.mkNixosHost;
+    mkDarwinHost = flakeLib.mkDarwinHost;
+    forAllSystems = flakeLib.forAllSystems;
+  in rec {
+    darwinConfigurations."MBP-von-Dean" = let
+      host = import ./hosts/darwin/modules.nix {
+        inherit
+          agenix
+          deansModules
+          nixvim
+        ;
+      };
+    in
+      mkDarwinHost {
+        system = "aarch64-darwin";
+        homeImports = host.homeModules;
+        modules = host.modules;
+      };
 
-    nixosConfigurations.wsl = (
-      import ./hosts/wsl/default.nix {
-        inherit (nixpkgs) lib;
-        inherit inputs nixpkgs home-manager agenix nixos-wsl;
-      }
-    );
-    nixosConfigurations.karotte = (
-      import ./hosts/karotte/default.nix {
-        inherit (nixpkgs) lib;
-        inherit inputs nixpkgs home-manager agenix;
-      }
-    );
+    darwinCiConfigurations."MBP-von-Dean" = let
+      host = import ./hosts/darwin/modules.nix {
+        inherit
+          agenix
+          deansModules
+          nixvim
+        ;
+      };
+    in
+      mkDarwinHost {
+        system = "aarch64-darwin";
+        homeImports = host.homeModules;
+        modules = host.modules ++ [deansModules.nixosModules.ciDisableLinuxBuilder];
+      };
+
+    nixosConfigurations.wsl = let
+      host = import ./hosts/wsl/modules.nix {
+        inherit
+          agenix
+          deansModules
+          nixvim
+        ;
+        nixosWsl = nixos-wsl;
+      };
+    in
+      mkNixosHost {
+        system = "x86_64-linux";
+        homeImports = host.homeModules;
+        modules = host.modules;
+      };
+
+    nixosConfigurations.karotte = let
+      host = import ./hosts/karotte/modules.nix {
+        inherit
+          agenix
+          deansModules
+          nixvim
+        ;
+      };
+    in
+      mkNixosHost {
+        system = "x86_64-linux";
+        homeImports = host.homeModules;
+        modules = host.modules;
+      };
+
     homeConfigurations."karotte" = let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system}.extend inputs.nixvim.overlays.default;
+      host = import ./hosts/karotte/modules.nix {
+        inherit
+          agenix
+          deansModules
+          nixvim
+        ;
+      };
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [nixvim.overlays.default];
+      };
     in
       home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [
-          ./hosts/karotte/home.nix
-          ./modules/home-manager/direnv.nix
-          ./modules/home-manager/git.nix
-          ./modules/home-manager/nixvim.nix
-          ./modules/home-manager/zsh/zsh.nix
-          ./modules/home-manager/wezterm/wezterm.nix
-        ];
+        modules = host.homeModules;
+      };
 
-        # Optionally use extraSpecialArgs
-        # to pass  through arguments to home.nix
-        extraSpecialArgs = {
-          inherit system;
-          user = "dean";
-          nixvim = inputs.nixvim;
-        };
-      };
     nixosConfigurations."NixUTM" = let
-      system = "aarch64-linux";
-    in
-      nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit inputs system;
-          user = "dean";
-          hostname = "NixUTM";
-        };
-        modules = [
-          ./hosts/nix-utm
-          home-manager.nixosModules.home-manager
-        ];
+      host = import ./hosts/nix-utm/modules.nix {
+        inherit
+          agenix
+          deansModules
+          nixvim
+        ;
       };
+    in
+      mkNixosHost {
+        system = "aarch64-linux";
+        homeImports = host.homeModules;
+        modules = host.modules;
+      };
+
     nixosConfigurations."NiXPS" = let
-      system = "x86_64-linux";
-    in
-      nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit inputs system;
-          user = "dean";
-          hostname = "NiXPS";
-        };
-        modules = [
-          ./hosts/nixps
-          home-manager.nixosModules.home-manager
-        ];
+      host = import ./hosts/nixps/modules.nix {
+        inherit
+          agenix
+          disko
+          deansModules
+          nixvim
+        ;
       };
+    in
+      mkNixosHost {
+        system = "x86_64-linux";
+        homeImports = host.homeModules;
+        modules = host.modules;
+      };
+
     nixosConfigurations."VirtualNix" = let
-      system = "x86_64-linux";
-    in
-      nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit inputs system;
-          user = "dean";
-          hostname = "VirtualNix";
-        };
-        modules = [
-          ./hosts/virtual-nix
-          home-manager.nixosModules.home-manager
-        ];
+      host = import ./hosts/virtual-nix/modules.nix {
+        inherit
+          agenix
+          deansModules
+          nixvim
+        ;
       };
+    in
+      mkNixosHost {
+        system = "x86_64-linux";
+        homeImports = host.homeModules;
+        modules = host.modules;
+      };
+
     nixosConfigurations."NixHyperVM" = let
-      system = "x86_64-linux";
-    in
-      nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit inputs system;
-          user = "dean";
-          hostname = "NixHyperVM";
-        };
-        modules = [
-          ./hosts/nix-hyper-vm
-          home-manager.nixosModules.home-manager
-        ];
+      host = import ./hosts/nix-hyper-vm/modules.nix {
+        inherit
+          agenix
+          deansModules
+          nixvim
+        ;
       };
+    in
+      mkNixosHost {
+        system = "x86_64-linux";
+        homeImports = host.homeModules;
+        modules = host.modules;
+      };
+
     nixosConfigurations."octoprint" = let
-      system = "aarch64-linux";
-    in
-      nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit inputs system;
-          user = "dean";
-          hostname = "octoprint";
-        };
-        modules = [
-          ./hosts/octoprint
-          home-manager.nixosModules.home-manager
-        ];
+      host = import ./hosts/octoprint/modules.nix {
+        inherit
+          agenix
+          deansModules
+          nixvim
+        ;
       };
+    in
+      mkNixosHost {
+        system = "aarch64-linux";
+        homeImports = host.homeModules;
+        modules = host.modules;
+      };
+
     formatter = forAllSystems ({pkgs, ...}: pkgs.alejandra);
   };
 }

@@ -3,10 +3,11 @@
   modulesPath,
   pkgs,
   lib,
-  hostname,
-  user,
   ...
-}: {
+}:
+let
+  hostname = "NiXPS";
+in {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
