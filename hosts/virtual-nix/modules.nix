@@ -26,6 +26,7 @@ in {
     hm.git
     hm.zsh
     hm.nixvim
+    hm.kitty
     hm.vscode
     hm.tmux
     ./home.nix

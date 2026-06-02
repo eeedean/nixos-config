@@ -19,17 +19,10 @@ in {
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-amd" "kvm-intel"];
   boot.extraModulePackages = [];
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/948ad99b-a50a-4517-b54e-260e237aebc1";
-    fsType = "ext4";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/BF47-0CB1";
-    fsType = "vfat";
-    options = ["fmask=0022" "dmask=0022"];
-  };
+  fileSystems."/" =
+    { device = "/dev/sda2";
+      fsType = "ext4";
+    };
 
   swapDevices = [];
 
