@@ -29,6 +29,7 @@ in {
       awscli2
       aws-refresh-mfa
       bruno
+      nodejs
     ];
 
     sessionVariables = {
