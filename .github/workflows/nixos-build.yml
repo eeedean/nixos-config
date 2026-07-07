@@ -2,8 +2,14 @@ name: Build NixOS configurations
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - bot/flake-update
   pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
   workflow_dispatch:
 
 jobs:
