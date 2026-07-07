@@ -2,13 +2,13 @@
   description = "Hosts repository for NixOS and nix-darwin configurations";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/4c1018dae018162ec878d42fec712642d214fdfa";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/5b56ad02dc643808b8af6d5f3ff179e2ce9593f4";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-darwin = {
-      url = "github:LnL7/nix-darwin";
+      url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
@@ -42,6 +42,8 @@
     disko,
     ...
   }: let
+    lockfile = builtins.fromJSON (builtins.readFile ./flake.lock);
+    nixpkgsRev = lockfile.nodes.${lockfile.nodes.root.inputs.nixpkgs}.locked.rev;
     deansModules = import ./modules;
     flakeLib = import ./lib/builders.nix {
       inherit
@@ -49,6 +51,7 @@
         home-manager
         deansModules
         nix-darwin
+        nixpkgsRev
         nixpkgs
         nixvim
       ;
@@ -135,6 +138,9 @@
     in
       home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
+        extraSpecialArgs = {
+          inherit nixpkgsRev;
+        };
 
         modules = host.homeModules;
       };

@@ -5,6 +5,7 @@
   agenix,
   nixvim,
   deansModules,
+  nixpkgsRev,
 }:
 let
   nixpkgsOverlayModule = {
@@ -28,6 +29,9 @@ let
   }: {
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
+    home-manager.extraSpecialArgs = {
+      inherit nixpkgsRev;
+    };
     home-manager.users.${config.identity.user}.imports = homeImports;
   };
 in {

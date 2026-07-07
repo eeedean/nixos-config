@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  nixpkgsRev,
   ...
 }: {
   home.file.".config/zsh/p10k.zsh".source = ./.p10k.zsh;
@@ -38,7 +39,7 @@
           echo "obase=2;$1" | bc;
         fi
       };
-      export NIX_REV="4bd9165a9165d7b5e33ae57f3eecbcb28fb231c9";
+      export NIX_REV="${nixpkgsRev}";
       export KUBE_EDITOR=nvim;
     '';
     plugins = [

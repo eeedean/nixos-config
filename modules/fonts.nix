@@ -11,7 +11,7 @@
       hack-font
       inconsolata
       inter
-      iosevka
+      iosevka-bin
       liberation_ttf
       montserrat
       nerd-fonts.fira-code

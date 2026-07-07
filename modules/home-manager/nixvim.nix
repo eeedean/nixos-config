@@ -10,12 +10,15 @@
 
   programs.nixvim = {
     enable = true;
+    nixpkgs.pkgs = pkgs;
     globals.mapleader = " ";
     colorschemes.catppuccin = {
       enable = true;
-      flavour = "mocha";
-      termColors = true;
-      transparentBackground = true;
+      settings = {
+        flavour = "mocha";
+        term_colors = true;
+        transparent_background = true;
+      };
     };
 
     opts = {
@@ -36,6 +39,7 @@
     '';
 
     plugins = {
+      luasnip.enable = true;
       lightline.enable = true;
       telescope.enable = true;
       tagbar.enable = true;
@@ -65,66 +69,52 @@
         };
       };
 
-      nvim-cmp = {
+      cmp = {
         enable = true;
-        snippet.luasnip.enable = true;
-        completion = {
-          completeopt = "menu,menuone,preview,noselect";
-        };
-        mapping = {
-          "<C-k>" = "cmp.mapping.select_prev_item()";
-          "<Up>" = "cmp.mapping.select_prev_item()";
-          "<C-j>" = "cmp.mapping.select_next_item()";
-          "<Down>" = "cmp.mapping.select_next_item()";
-          "<C-b>" = "cmp.mapping.scroll_docs(-4)";
-          "<PageUp>" = "cmp.mapping.scroll_docs(-4)";
-          "<C-f>" = "cmp.mapping.scroll_docs(4)";
-          "<PageDown>" = "cmp.mapping.scroll_docs(4)";
-          "<C-Space>" = "cmp.mapping.complete()";
-          "<LeftMouse>" = "cmp.mapping.complete()";
-          "<C-e>" = "cmp.mapping.abort()";
-          "<Esc>" = "cmp.mapping.abort()";
-          "<CR>" = "cmp.mapping.confirm({ select = false })";
-        };
-        sources = {
-          "nvim_lsp" = {
-            enable = true;
+        settings = {
+          snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
+          completion = {
+            completeopt = "menu,menuone,preview,noselect";
           };
-          "buffer" = {
-            enable = true;
-            option = {
+          mapping = {
+            "<C-k>" = "cmp.mapping.select_prev_item()";
+            "<Up>" = "cmp.mapping.select_prev_item()";
+            "<C-j>" = "cmp.mapping.select_next_item()";
+            "<Down>" = "cmp.mapping.select_next_item()";
+            "<C-b>" = "cmp.mapping.scroll_docs(-4)";
+            "<PageUp>" = "cmp.mapping.scroll_docs(-4)";
+            "<C-f>" = "cmp.mapping.scroll_docs(4)";
+            "<PageDown>" = "cmp.mapping.scroll_docs(4)";
+            "<C-Space>" = "cmp.mapping.complete()";
+            "<LeftMouse>" = "cmp.mapping.complete()";
+            "<C-e>" = "cmp.mapping.abort()";
+            "<Esc>" = "cmp.mapping.abort()";
+            "<CR>" = "cmp.mapping.confirm({ select = false })";
+          };
+          sources = [
+            {
+              name = "nvim_lsp";
+            }
+            {
+              name = "buffer";
               keyword_length = 5;
-            };
-          };
-          "path" = {
-            enable = true;
-          };
+            }
+            {
+              name = "path";
+            }
+          ];
         };
       };
 
       lsp = {
         enable = true;
         servers = {
-          "*" = {
-            config = {
-              capabilities = {
-                textDocument = {
-                  semanticTokens = {
-                    multilineTokenSupport = true;
-                  };
-                };
-              };
-              root_markers = [
-                ".git"
-              ];
-            };
-          };
           bashls.enable = true;
           clangd.enable = true;
           cssls.enable = true;
           eslint.enable = true;
           jsonls.enable = true;
-          nil.enable = true;
+          nil_ls.enable = true;
           pyright.enable = true;
           rust_analyzer = {
             installCargo = false;
@@ -140,6 +130,19 @@
       };
       lsp-progress.enable = true;
       web-devicons.enable = true;
+    };
+
+    lsp.servers."*".config = {
+      capabilities = {
+        textDocument = {
+          semanticTokens = {
+            multilineTokenSupport = true;
+          };
+        };
+      };
+      root_markers = [
+        ".git"
+      ];
     };
 
     keymaps = [
