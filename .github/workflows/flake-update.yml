@@ -1,0 +1,60 @@
+name: Update flake.lock
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: flake-update
+  cancel-in-progress: true
+
+jobs:
+  update:
+    name: Refresh flake.lock
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Update flake inputs
+        run: nix flake update
+
+      - name: Detect lockfile changes
+        id: diff
+        run: |
+          if git diff --quiet -- flake.lock; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create pull request
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: bot/flake-update
+          base: main
+          title: "chore(nix): update flake.lock"
+          commit-message: "chore(nix): update flake.lock"
+          body: |
+            Automated flake.lock refresh.
+
+            Validation is handled by .github/workflows/nixos-build.yml.
+          labels: dependencies
+          delete-branch: true
+          add-paths: |
+            flake.lock
