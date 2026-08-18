@@ -1,11 +1,11 @@
-{...}:
+{pkgs, ...}:
 {
   programs = {
     home-manager.enable = true;
   };
 
   home = {
-    packages = [];
+    packages = with pkgs; [ mprocs ];
     sessionVariables = {};
 
     shellAliases = {
