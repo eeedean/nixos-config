@@ -80,7 +80,7 @@ in {
       # Nix - Settings - Trusted Users
       # https://mynixos.com/nix-darwin/option/nix.settings.trusted-users
       trusted-users = [
-        "${user}"
+        "@admin"
       ];
       substituters = [ "https://nixcache.redoak.blue-atlas.cloud/nix-cache" ];
       trusted-public-keys = [ "nix-cache:cK6Fq5BF/uopcJRAe5lIVO51Z191+ueWyxR4lr0W7H0=" ];
@@ -109,10 +109,10 @@ in {
     # Enable building Linux binaries
     linux-builder = {
       enable = true;
+      package = pkgs.darwin.linux-builder-vz;
       ephemeral = true;
       maxJobs = 8;
       config = {pkgs, ...}: {
-        boot.binfmt.emulatedSystems = ["x86_64-linux"];
         nix.settings.sandbox = false;
         nix.settings.experimental-features = [
           "nix-command"
@@ -133,7 +133,6 @@ in {
             memorySize = 8 * 1024;
           };
           cores = 8;
-          msize = 256 * 1024;
         };
 
         security.sudo.wheelNeedsPassword = false;
