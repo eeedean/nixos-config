@@ -39,6 +39,7 @@
           echo "obase=2;$1" | bc;
         fi
       };
+      export DISABLE_AUTO_TITLE='true';
       export NIX_REV="${nixpkgsRev}";
       export KUBE_EDITOR=nvim;
     '';
