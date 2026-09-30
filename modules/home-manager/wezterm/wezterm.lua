@@ -30,7 +30,7 @@ config.inactive_pane_hsb = {
 }
 
 -- Keys
-config.leader = { key = "w", mods = "CTRL", timeout_milliseconds = 1000 }
+config.leader = { key = "x", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
   -- { key = '8', mods = 'ALT', action = "SendString", arg = "{" },
   -- Send C-a when pressing C-a twice
