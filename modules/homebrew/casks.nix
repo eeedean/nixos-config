@@ -1,6 +1,5 @@
 [
   "android-platform-tools"
-  "anki"
   "anydesk"
   "balenaetcher"
   "cameracontroller"
