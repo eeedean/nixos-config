@@ -7,6 +7,10 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    steam-frame-nix = {
+      url = "github:lhns/steam-frame-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -40,6 +44,7 @@
     nixvim,
     nixos-wsl,
     disko,
+    steam-frame-nix,
     ...
   }: let
     lockfile = builtins.fromJSON (builtins.readFile ./flake.lock);
@@ -54,7 +59,7 @@
         nixpkgsRev
         nixpkgs
         nixvim
-      ;
+        ;
     };
     mkNixosHost = flakeLib.mkNixosHost;
     mkDarwinHost = flakeLib.mkDarwinHost;
@@ -128,6 +133,31 @@
           agenix
           deansModules
           nixvim
+        ;
+      };
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [nixvim.overlays.default];
+      };
+    in
+      home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = {
+          inherit nixpkgsRev;
+        };
+
+        modules = host.homeModules;
+      };
+
+    homeConfigurations."steam-frame" = let
+      system = "aarch64-linux";
+      host = import ./hosts/steam-frame/modules.nix {
+        inherit
+          agenix
+          deansModules
+          nixvim
+          steam-frame-nix
         ;
       };
       pkgs = import nixpkgs {

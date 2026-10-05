@@ -1,4 +1,4 @@
-name: Build NixOS configurations
+name: Build Nix configurations
 
 on:
   push:
@@ -77,6 +77,30 @@ jobs:
           gc-max-store-size: 6G
       - name: Build nixosConfiguration
         run: nix build --no-link .#nixosConfigurations.${{ matrix.config }}.config.system.build.toplevel
+
+  steam-frame-build:
+    name: homeConfigurations.steam-frame.activationPackage (aarch64)
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - name: Log Nix info
+        run: |
+          nix --version
+          nix show-config
+      - name: Restore and save Nix store
+        uses: nix-community/cache-nix-action@106bba72ed8e29c8357661199511ef07790175e9 # v7
+        with:
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/flake.lock') }}
+          restore-prefixes-first-match: nix-${{ runner.os }}-
+          gc-max-store-size: 6G
+      - name: Build Steam Frame Home Manager configuration
+        run: nix build --no-link '.#homeConfigurations."steam-frame".activationPackage'
 
   darwin-build:
     name: darwinConfigurations.MBP-von-Dean.system
