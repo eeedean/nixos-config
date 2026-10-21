@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     ansible
-    audacity
     asciidoctor
     bash-completion
     bat
