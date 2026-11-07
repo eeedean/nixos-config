@@ -3,7 +3,7 @@ let
   user = config.home.username;
   homeDirectory = config.home.homeDirectory;
   ownSecretsScript =
-    if pkgs.stdenv.isDarwin
+    if pkgs.stdenv.hostPlatform.isDarwin
     then ''
       if [ -d /run/agenix ]; then
         /usr/bin/sudo chown ${user} /run/agenix/*
