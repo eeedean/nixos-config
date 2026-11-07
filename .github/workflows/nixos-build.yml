@@ -27,7 +27,7 @@ jobs:
           - NixHyperVM
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install Nix
         uses: cachix/install-nix-action@v31
         with:
@@ -39,7 +39,7 @@ jobs:
           nix --version
           nix show-config
       - name: Restore and save Nix store
-        uses: nix-community/cache-nix-action@106bba72ed8e29c8357661199511ef07790175e9 # v7
+        uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
         with:
           primary-key: nix-${{ runner.os }}-${{ hashFiles('**/flake.lock') }}
           restore-prefixes-first-match: nix-${{ runner.os }}-
@@ -58,7 +58,7 @@ jobs:
           - octoprint
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install Nix
         uses: cachix/install-nix-action@v31
         with:
@@ -70,7 +70,7 @@ jobs:
           nix --version
           nix show-config
       - name: Restore and save Nix store
-        uses: nix-community/cache-nix-action@106bba72ed8e29c8357661199511ef07790175e9 # v7
+        uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
         with:
           primary-key: nix-${{ runner.os }}-${{ hashFiles('**/flake.lock') }}
           restore-prefixes-first-match: nix-${{ runner.os }}-
@@ -82,7 +82,7 @@ jobs:
     name: homeConfigurations.steam-frame.activationPackage (aarch64)
     runs-on: ubuntu-24.04-arm
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install Nix
         uses: cachix/install-nix-action@v31
         with:
@@ -94,7 +94,7 @@ jobs:
           nix --version
           nix show-config
       - name: Restore and save Nix store
-        uses: nix-community/cache-nix-action@106bba72ed8e29c8357661199511ef07790175e9 # v7
+        uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
         with:
           primary-key: nix-${{ runner.os }}-${{ hashFiles('**/flake.lock') }}
           restore-prefixes-first-match: nix-${{ runner.os }}-
@@ -106,7 +106,7 @@ jobs:
     name: darwinConfigurations.MBP-von-Dean.system
     runs-on: macos-26
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install Nix
         uses: cachix/install-nix-action@v31
         with:
@@ -118,7 +118,7 @@ jobs:
           nix --version
           nix show-config
       - name: Restore and save Nix store
-        uses: nix-community/cache-nix-action@106bba72ed8e29c8357661199511ef07790175e9 # v7
+        uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
         with:
           primary-key: nix-${{ runner.os }}-${{ hashFiles('**/flake.lock') }}
           restore-prefixes-first-match: nix-${{ runner.os }}-
