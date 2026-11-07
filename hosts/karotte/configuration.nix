@@ -47,7 +47,7 @@ in {
     vim
     ansible
     asciidoctor
-    awscli
+    awscli2
     bash-completion
     bat
     curl
